@@ -15,8 +15,8 @@
             <input type="file" name="file" id="image-file" class="form-control" onchange="showImagePreview(this)" accept="image/*" required />
 			
 			<select class="form-control upload-dropdown" name="isPrivate">
-				<option value="public">Public</option>
-				<option value="private">Private</option>
+				<option value="0">Public</option>
+				<option value="1">Private</option>
 			</select>
 			
             <select class="form-control upload-dropdown" name="filter" onchange="showImageFilter(this.value)">

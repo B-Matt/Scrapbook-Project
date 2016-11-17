@@ -27,6 +27,6 @@ class Photos extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'poster_id', 'title', 'description', 'filter', 'file', 'path'
+        'poster_id', 'title', 'description', 'filter', 'isPrivate', 'file', 'path'
     ];
 }
