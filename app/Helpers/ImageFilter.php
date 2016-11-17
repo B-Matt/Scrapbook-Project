@@ -27,7 +27,7 @@ if(isset($_POST['filter']) && isset($_POST['path'])) {
 			$image->filter(new Filters\velvetFilter());
 			break;
 		case 'blackwhite':
-			$image->filter(new Filters\blackwhiteFilter());
+			$image->filter(new Filters\BlackWhiteFilter());
 			break;
 		case 'boost':
 			$image->filter(new Filters\boostFilter());
@@ -41,7 +41,6 @@ if(isset($_POST['filter']) && isset($_POST['path'])) {
 		case 'syncity':
 			$image->filter(new Filters\SynCityFilter());
 			break;
-	} 
-	$image->resize(292, 292);
+	}
 	echo base64_encode($image->response('jpg'));
 }
