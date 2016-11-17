@@ -6,7 +6,6 @@ use PhpAcademy\Image\Filters;
 	
 if(isset($_POST['filter']) && isset($_POST['path'])) {
 	$image = Image::make($_POST['path']);
-	
 	switch($_POST['filter']) {
 		case 'antique':
 			$image->filter(new Filters\AntiqueFilter());

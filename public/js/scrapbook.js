@@ -14,8 +14,8 @@ function showImagePreview(input) {
 
 function showImageFilter(input) {
 	$.post("../app/Helpers/ImageFilter.php", { filter: input, path: filename },
-		function(data, status){
-			$("#upload-preview-image").attr('src', 'data:image/png;base64,' + data);
+		function(data, status) {
+			$("#upload-preview-image").attr('src', 'data:image/jpg;base64,' + data);
 		}
 	);
 }
