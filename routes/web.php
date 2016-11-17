@@ -12,15 +12,16 @@
 */
 
 /** INDEX CONTROLERS **/
-Route::get('/'				, 'IndexController@index');
-Route::get('/user/{name}'	, 'IndexController@user');
+Route::get('/'					, 'IndexController@index');
+Route::get('/user/{name}'		, 'IndexController@user');
 
 /** FORM CONTROLERS **/
-Route::get('/login'			, 'FormController@login');
-Route::post('/login'		, 'FormController@loginsubmit');
-Route::get('/register'		, 'FormController@register');
-Route::post('/register'		, 'FormController@registersubmit');
+Route::get('/login'				, 'FormController@login');
+Route::post('/login'			, 'FormController@loginsubmit');
+Route::get('/register'			, 'FormController@register');
+Route::post('/register'			, 'FormController@registersubmit');
 
 /** IMAGE CONTROLERS **/
-Route::get('/upload'		, 'ImageController@upload');
-Route::post('/upload'		, 'ImageController@uploadsubmit');
+Route::get('/upload'			, 'ImageController@upload');
+Route::post('/upload'			, 'ImageController@uploadsubmit');
+Route::get('/image/{imageid}'	, 'ImageController@image');

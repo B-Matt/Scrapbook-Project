@@ -69,7 +69,7 @@ class ImageController extends Controller
     {
         $this->validate($request, [
             'name'            => 'required|string|max:30',
-            'description'     => 'required|string|max:60',
+            'description'     => 'required|string|max:256',
 			'isPrivate'		  => 'required',
             'filter'          => 'required'
         ]);
@@ -77,13 +77,14 @@ class ImageController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             
-            $name = uniqid() . md5($file->getClientOriginalName(). time() . date("d/m/Y") . 'ScrapbookImageUpload' );
+            $name = uniqid() . md5($file->getClientOriginalName(). time() . 'ScrapbookImageUpload' );
 			$path = $file->move(public_path('images'), $name . '.jpg');
 			
             ImageController::saveImageWithFilter($path, $request->filter, $name, TYPE_THUMBNAIL);
 			ImageController::saveImageWithFilter($path, $request->filter, $name, TYPE_FULLPHOTO);
 			
-			//File::delete($name . '.jpg');
+			unlink(public_path('images') . '/' . $name . '.jpg');
+			
 			$path = public_path('images') . '/' . $name . '_full.jpg';
             $path = str_replace("\\", "/", $path);
             
@@ -106,4 +107,13 @@ class ImageController extends Controller
             return redirect("user/" . $_SESSION['login_name']);
         }
     }
+	
+	public function image($imageid) {
+		$photo = new Photos();
+		$image = $photo->select()->where('id', '=', $imageid)->first();
+		
+		$user = new User();
+        $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
+		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original']]);
+	}
 }

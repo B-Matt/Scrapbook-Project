@@ -42,5 +42,5 @@ if(isset($_POST['filter']) && isset($_POST['path'])) {
 			$image->filter(new Filters\SynCityFilter());
 			break;
 	}
-	echo base64_encode($image->response('jpg'));
+	echo 'data:image/jpg;base64,' . base64_encode($image->response('jpg', 100));
 }

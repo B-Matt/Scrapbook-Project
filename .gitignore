@@ -2,6 +2,8 @@
 /public/storage
 /vendor
 /.idea
+/public/images
+/public/images/thumbnail
 Homestead.json
 Homestead.yaml
 #.env
