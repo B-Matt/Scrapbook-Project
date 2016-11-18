@@ -19,10 +19,10 @@
 @endsection
 
 @section('content')
-    <br><br><br>
+	<br><br><br>
 	<div class="gallery">
 		@foreach($images as $photo)
-			<div><img src='{{ asset($photo->path) }}' /></div>
+			<a href='../image/{{ $photo->id }}'><img src='{{ asset($photo->path) }}' alt='{{ $photo->title }}' /></a>
 		@endforeach
 	</div>
 @endsection
