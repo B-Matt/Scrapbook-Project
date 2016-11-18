@@ -114,6 +114,9 @@ class ImageController extends Controller
 		
 		$user = new User();
         $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
-		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original']]);
+
+		$diff = time() - $image['original']['created_at'];
+		$hours = $diff / 3600 % 24;
+		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours]);
 	}
 }

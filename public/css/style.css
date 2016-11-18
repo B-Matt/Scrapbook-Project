@@ -224,7 +224,7 @@ hr {
 ------------------------- */
 .view-image {
 	display: block;
-    width: 80%;
+    width: 87%;
     height: 100%;
 	overflow-x: hidden;
     overflow-y: auto;
@@ -233,23 +233,55 @@ hr {
     -moz-box-shadow: 0px 0px 1px 0.5px rgba(0, 0, 0, 0.39);
     box-shadow: 0px 0px 1px 0.5px rgba(0, 0, 0, 0.39);
 	word-break: break-word;
+	margin: 0 auto;
 }
 
-.view-subtitle {
-	font-family: 'Calibri', sans-serif;
-	color: black;
-	margin-top: -5px;
-	padding-left: 15px
+.view-header {
+	display: inline-flex;
+	text-align: left;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.view-author {
+	padding-right: 5px;
+	color: #262626;
+	
+}
+
+.view-avatar {
+	width: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 2px solid white;
+	border-radius: 100%;
+	-webkit-box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.39);
+	box-shadow: 0px 0px 5px 0.5px rgba(0, 0, 0, 0.39);
+}
+
+.view-hours {
+	float: right;
+	width: auto;
+	margin-top: 20px;
+	padding: 0;
+}
+
+.view-title {
+	width:auto;
+	padding: 0;
 }
 
 .view-text {
 	color: black;
     padding-left: 5px;
-	
+    width: 340px;
+    word-break: break-all;
+    font-family: 'Calibri', sans-serif;
 }
 
 .view-image hr {
-	width: 380px;
+	width: 335px;
 	margin-top: 0px !important;
 }
 

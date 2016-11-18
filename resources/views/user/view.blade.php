@@ -5,13 +5,22 @@
 	<div class="view-image">
 		<div class="row">
 			<div class="col-sm-4" style="width:auto;">
-				<img src='{{ asset($image["path"]) }}' alt='{{ asset($image["title"]) }}' height="600" width="480" />
+				<img src='{{ asset($image["path"]) }}' alt='{{ asset($image["title"]) }}' height="598" width="598" />
 			</div>
-			<div class="col-sm-4" style="width:auto;">
-				<h1 class="view-header"><?php echo $image['title']; ?></h1>
-				<p class="view-subtitle"><?php echo '<b>' . $poster['name'] . '</b> | ' . $image['created_at']; ?></p>
+			<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-4" style="width:auto;">
+						<img class="view-avatar" width="60" height="60" src="<?php echo $poster['avatar'] ?>" alt="Profile Picture" />
+					</div>
+					<div class="col-sm-4 view-title">
+						<h1><?php echo $image['title']; ?></h1>
+					</div>
+					<div class="col-sm-4 view-hours"><h4 class="view-title">
+						<?php echo $posted_at . 'h'; ?></h4>
+					</div>
+				</div>
 				<hr>
-				<span class="view-text"><?php echo $image['description']; ?></span>
+				<p class="view-text"><?php echo '<b class="view-author">' . $poster['name'] . ':</b> ' . $image['description']; ?></p>
 			</div>
 		</div>
 	</div>
