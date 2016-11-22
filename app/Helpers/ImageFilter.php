@@ -31,7 +31,7 @@ if(isset($_POST['filter']) && isset($_POST['path'])) {
 			$image->filter(new Filters\BlackWhiteFilter());
 			break;
 		case 'boost':
-			$image->filter(new Filters\boostFilter());
+			$image->filter(new Filters\BoostFilter());
 			break;
 		case 'dreamy':
 			$image->filter(new Filters\DreamyFilter());

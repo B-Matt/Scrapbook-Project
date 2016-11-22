@@ -1,5 +1,5 @@
 <?php
-/*use App\User;
+use App\User;
 use App\Comments;
 	
 if(isset($_GET['comment']) && isset($_GET['author']) && isset($_GET['image_id'])) {
@@ -18,4 +18,4 @@ if(isset($_GET['comment']) && isset($_GET['author']) && isset($_GET['image_id'])
     catch(Exception $e){
        echo $e->getMessage();
     }
-}*/
+}

@@ -110,18 +110,25 @@ class ImageController extends Controller
     }
 	
 	public function image($imageid) {
+		// Load photo
 		$photo = new Photos();
 		$image = $photo->select()->where('id', '=', $imageid)->first();
-		
+
 		$user = new User();
         $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
-
+		
+		// Time created
 		$diff = time() - $image['original']['created_at'];
 		$hours = $diff / 3600 % 24;
 		
+		// Comments
 		$comments = new Comments();
 		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
-		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts]);
+		
+		// Loves
+		/*$loves = new Loves();
+		$love_data = $loves->join('accounts', 'accounts.name', '=', $_SESSION['login_name'])->select('accounts.id', 'loves.*')->where('image_id', '=', $imageid)->get();
+		*/return view('user.view', [ 'image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts ]);
 	}
 	
 	public function commentsubmit($imageid, Request $request) {
@@ -154,6 +161,12 @@ class ImageController extends Controller
 	public function deleteimage($imageid) {
 		$photo = new Photos();
 		$photo = $photo->find($imageid);
+		
+		$string = explode('/', $photo->path);
+		$string = explode('_full', $string[1]);
+		
+		unlink(public_path() . '/images/thumbnail/' . $string[0] . '_thumb' . $string[1]);
+		unlink(public_path($photo->path));
 		$photo->delete();
 		return redirect("user/" . $_SESSION['login_name']);
 	}

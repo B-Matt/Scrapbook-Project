@@ -36,7 +36,21 @@
 				</div>
 				<hr>
 				<p class="view-text"><?php echo $image['description']; ?></p>
-				<div class="view-info"><p>Ada</p></div>
+				<div class="view-info">
+					<ul>
+						<li>
+							<div id="love-button" class="view-info-button">
+								<span class="love-icon view-info-awesome">&#xf08a;</span>
+								<span class="love-text view-info-text">Love it</span>
+							</div>
+							<input type="hidden" class="view-lover" value="<?php echo $_SESSION['login_name'] ?>" />
+							<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
+						</li>
+						<li>
+							<p><span class="view-info-awesome">&#xf007;</span> 100k</p>
+						</li>
+					</ul>
+				</div>
 				<div style="overflow:hidden;margin-right:-36px;">
 					<div class="view-comments">
 						@foreach($comments as $posts)
