@@ -121,8 +121,6 @@ class ImageController extends Controller
 		
 		$comments = new Comments();
 		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
-		
-		//$_SESSION['image_view'] = time() . '|' . ;
 		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts]);
 	}
 	
