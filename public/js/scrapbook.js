@@ -19,3 +19,15 @@ function showImageFilter(input) {
 		}
 	);
 }
+
+/*$('.view-submit').click(function submitComment() {
+	$('.view-comments').append('<p class="view-post"><b class="view-author">' + $('.view-author-name').val() + ':</b>' + $('.view-input').val() + '</p>');
+		
+	$.post("../../app/helpers/ImageComments.php", { comment: $('.view-input').val(), author: $('.view-author-name').val(), image_id: $('.view-author-id').val() },
+		function(data, status){
+			alert(status);
+		}
+	);
+	
+	$('.view-input').val("");
+});*/

@@ -16,10 +16,10 @@ class IndexController
 	
 	public function user($name) 
 	{        
-            $user = new User();
-            $poster = $user->where('name', '=', $name)->first();
-            $photo = new Photos();
-            $images = $photo->select()->where('poster_id', '=', $poster['original']['id'])->get();
-            return view('user.index', ['user' => $poster['original'], 'images' => $images]);
+		$user = new User();
+		$poster = $user->where('name', '=', $name)->first();
+		$photo = new Photos();
+		$images = $photo->select()->where('poster_id', '=', $poster['original']['id'])->paginate(6);
+		return view('user.index', ['user' => $poster['original'], 'images' => $images]);
 	}
 }

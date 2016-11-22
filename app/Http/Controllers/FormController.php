@@ -15,6 +15,16 @@ class FormController extends Controller
         return view('login');
 	}
 	
+	public function logout()
+    {
+		if(isset($_SESSION['login_name'])) {
+			session_unset();
+			session_destroy();
+			return redirect("login");
+		}
+		return redirect("user/" . $_SESSION['login_name']);
+	}
+	
     public function register()
     {
 		if(isset($_SESSION['login_name'])) return redirect("user/" . $_SESSION['login_name']);
@@ -44,12 +54,13 @@ class FormController extends Controller
 		
         $user = new User();
 		
-	$user->name         = $request->name;
-        $user->email        = $request->email;
-        $user->password     = hash("Whirlpool", $request->password);
+		$user->name         = $request->name;
+		$user->email        = $request->email;
+		$user->password     = hash("Whirlpool", $request->password);
 		
-        $user->save();
-	return redirect("user/$request->name");
+		$user->save();
+		$_SESSION['login_name'] = $request->name;		
+		return redirect("user/$request->name");
     }
 
 }

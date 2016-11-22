@@ -12,16 +12,19 @@
 */
 
 /** INDEX CONTROLERS **/
-Route::get('/'					, 'IndexController@index');
-Route::get('/user/{name}'		, 'IndexController@user');
+Route::get('/'							, 'IndexController@index');
+Route::get('/user/{name}'				, 'IndexController@user');
 
-/** FORM CONTROLERS **/
-Route::get('/login'				, 'FormController@login');
-Route::post('/login'			, 'FormController@loginsubmit');
-Route::get('/register'			, 'FormController@register');
-Route::post('/register'			, 'FormController@registersubmit');
+/** USER CONTROLERS (form) **/
+Route::get('/login'						, 'FormController@login');
+Route::post('/login'					, 'FormController@loginsubmit');
+Route::get('/register'					, 'FormController@register');
+Route::post('/register'					, 'FormController@registersubmit');
+Route::get('/logout'					, 'FormController@logout');
 
 /** IMAGE CONTROLERS **/
-Route::get('/upload'			, 'ImageController@upload');
-Route::post('/upload'			, 'ImageController@uploadsubmit');
-Route::get('/image/{imageid}'	, 'ImageController@image');
+Route::get('/upload'					, 'ImageController@upload');
+Route::post('/upload'					, 'ImageController@uploadsubmit');
+Route::get('/image/{imageid}'			, 'ImageController@image');
+Route::post('/image/{imageid}'			, 'ImageController@commentsubmit');
+Route::get('/image/delete/{imageid}'	, 'ImageController@deleteimage');

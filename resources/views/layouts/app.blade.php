@@ -35,6 +35,9 @@
 			<li class="nav-item">
 			  <a class="nav-link" href="{{ url('/upload') }}">Upload</a>
 			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="{{ url('/logout') }}">Log out</a>
+			</li>
 			<?php else: ?>
 			<li class="nav-item">
 			  <a class="nav-link" href="{{ url('/login') }}">Login</a>
@@ -58,6 +61,6 @@
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-                <script src="{{asset('js/scrapbook.js')}}"></script>
+		<script src="{{asset('js/scrapbook.js')}}"></script>
   </body>
 </html>

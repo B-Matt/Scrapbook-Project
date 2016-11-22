@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Photos;
+use App\Comments;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use PhpAcademy\Image\Filters;
@@ -117,6 +118,45 @@ class ImageController extends Controller
 
 		$diff = time() - $image['original']['created_at'];
 		$hours = $diff / 3600 % 24;
-		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours]);
+		
+		$comments = new Comments();
+		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
+		
+		//$_SESSION['image_view'] = time() . '|' . ;
+		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts]);
+	}
+	
+	public function commentsubmit($imageid, Request $request) {
+		$this->validate($request, [
+            'comment'	=> 'required|string|max:90',
+        ]);
+		$text = htmlspecialchars($_POST['comment']);
+	
+		$user = new User();
+		$poster = $user->where('name', '=', $_POST['author'])->first();
+		
+		$comments = new Comments();
+		$comments->poster_id 	= $poster['original']['id'];
+		$comments->image_id		= $_POST['image_id'];
+		$comments->text			= $text;
+		$comments->save();
+		
+		$photo = new Photos();
+		$image = $photo->select()->where('id', '=', $imageid)->first();
+        $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
+
+		$diff = time() - $image['original']['created_at'];
+		$hours = $diff / 3600 % 24;
+		
+		$comments = new Comments();
+		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
+		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts]);
+	}
+	
+	public function deleteimage($imageid) {
+		$photo = new Photos();
+		$photo = $photo->find($imageid);
+		$photo->delete();
+		return redirect("user/" . $_SESSION['login_name']);
 	}
 }

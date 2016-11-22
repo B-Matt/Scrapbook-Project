@@ -21,8 +21,15 @@
 @section('content')
 	<br><br><br>
 	<div class="gallery">
-		@foreach($images as $photo)
-			<a href='../image/{{ $photo->id }}'><img src='{{ asset($photo->path) }}' alt='{{ $photo->title }}' /></a>
-		@endforeach
+		<ul id="items">
+			@foreach($images as $photo)
+				<li class="item">
+					<a class="gallery-image-link" href='../image/{{ $photo->id }}'>
+						<img src='{{ asset($photo->path) }}' alt='{{ $photo->title }}' height=293 width=293 />
+					</a>
+				</li>
+			@endforeach
+		</ul>
+		{{ $images->links() }}
 	</div>
 @endsection

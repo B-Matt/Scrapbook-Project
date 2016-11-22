@@ -5,12 +5,14 @@ use Intervention\Image\ImageManagerStatic as Image;
 use PhpAcademy\Image\Filters;
 	
 if(isset($_POST['filter']) && isset($_POST['path'])) {
-	$type 	= 'gif';
+	$type 	= 'jpg';
 	$image 	= Image::make($_POST['path']);
 	switch($_POST['filter']) {
-		case 'antique':
+		case 'antique':{
+			$type = 'png';
 			$image->filter(new Filters\AntiqueFilter());
 			break;
+		}
 		case 'blur': {
 			$type = 'jpg';
 			$image->filter(new Filters\BlurFilter());
@@ -27,28 +29,34 @@ if(isset($_POST['filter']) && isset($_POST['path'])) {
 			$image->filter(new Filters\RetroFilter());
 			break;
 		}
-		case 'velvet':
+		case 'velvet': {
+			$type = 'png';
 			$image->filter(new Filters\velvetFilter());
 			break;
+		}
 		case 'blackwhite':
 			$image->filter(new Filters\BlackWhiteFilter());
 			break;
-		case 'boost':
+		case 'boost': {
+			$type = 'gif';
 			$image->filter(new Filters\boostFilter());
 			break;
+		}
 		case 'dreamy': {
 			$type = 'png';
 			$image->filter(new Filters\DreamyFilter());
 			break;
 		}
-		case 'sepia':
+		case 'sepia': {
+			$type = 'png';
 			$image->filter(new Filters\SepiaFilter());
 			break;
+		}
 		case 'syncity': {
 			$type = 'jpg';
 			$image->filter(new Filters\SynCityFilter());
 			break;
 		}
 	}
-	echo 'data:image/' . $type . ';base64,' . base64_encode($image->response($type)) . "==";
+	echo 'data:image/' . $type . ';base64,' . base64_encode($image->response($type, 100)) . "==";
 }
