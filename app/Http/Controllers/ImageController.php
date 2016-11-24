@@ -139,6 +139,10 @@ class ImageController extends Controller
 		$loves = new Loves();
 		$love_data = $loves->join('accounts', 'loves.lovers_id', '=', 'accounts.id')->select('accounts.name', 'loves.*')->where([['image_id', '=', $imageid], ['accounts.name', '=', $_SESSION['login_name']]])->first();
 		
+		// Views counter
+		$image->views = $image->views + 1;
+		$image->save();
+		
 		$options = [ 
 			'image' 	=> $image['original'], 
 			'poster' 	=> $poster['original'], 

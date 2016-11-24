@@ -56,7 +56,7 @@
 							<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
 						</li>
 						<li>
-							<p><span class="view-info-awesome">&#xf007;</span> 100k</p>
+							<p><span class="view-info-awesome">&#xf007;</span> <?php echo $image['views'] ?></p>
 						</li>
 					</ul>
 				</div>
