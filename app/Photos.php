@@ -21,6 +21,11 @@ class Photos extends Authenticatable
      */
     public $timestamps = true;	
     
+	/**
+	 * Format unixtimestamp za created_at i updated_at
+	*/
+	protected $dateFormat = 'U';
+	
     /**
      * The attributes that are mass assignable.
      *

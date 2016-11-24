@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Photos;
 use App\Comments;
+use App\Loves;
+
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use PhpAcademy\Image\Filters;
@@ -23,8 +25,8 @@ class ImageController extends Controller
 	function saveImageWithFilter($path, $filter, $name, $type)
 	{
 		$image = Image::make($path);
-		if($type == TYPE_THUMBNAIL) 		$image->resize(293, 293);
-		else if($type == TYPE_FULLPHOTO) 	$image->resize(1080, 1080);
+		if($type == TYPE_THUMBNAIL) 		$image->fit(293);
+		else if($type == TYPE_FULLPHOTO) 	$image->fit(1080);
 		
 		switch($filter) {
 			case 'antique':
@@ -114,6 +116,7 @@ class ImageController extends Controller
 		$photo = new Photos();
 		$image = $photo->select()->where('id', '=', $imageid)->first();
 
+		// Photo poster
 		$user = new User();
         $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
 		
@@ -126,9 +129,17 @@ class ImageController extends Controller
 		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
 		
 		// Loves
-		/*$loves = new Loves();
-		$love_data = $loves->join('accounts', 'accounts.name', '=', $_SESSION['login_name'])->select('accounts.id', 'loves.*')->where('image_id', '=', $imageid)->get();
-		*/return view('user.view', [ 'image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts ]);
+		$loves = new Loves();
+		$love_data = $loves->join('accounts', 'loves.lovers_id', '=', 'accounts.id')->select('accounts.name', 'loves.*')->where([['image_id', '=', $imageid], ['accounts.name', '=', $_SESSION['login_name']]])->first();
+		
+		$options = [ 
+			'image' 	=> $image['original'], 
+			'poster' 	=> $poster['original'], 
+			'posted_at' => $hours, 
+			'comments' 	=> $posts, 
+			'loved' 	=> $love_data['original']['name']
+		];
+		return view('user.view', $options);
 	}
 	
 	public function commentsubmit($imageid, Request $request) {

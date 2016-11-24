@@ -25,6 +25,6 @@ Route::get('/logout'					, 'FormController@logout');
 /** IMAGE CONTROLERS **/
 Route::get('/upload'					, 'ImageController@upload');
 Route::post('/upload'					, 'ImageController@uploadsubmit');
-Route::get('/image/{imageid}'			, 'ImageController@image');
-Route::post('/image/{imageid}'			, 'ImageController@commentsubmit');
+Route::get('/image/{imageid}'			, 'ImageController@image')->where('imageid', '[0-9]+');
+Route::post('/image/{imageid}'			, 'ImageController@commentsubmit')->where('imageid', '[0-9]+');
 Route::get('/image/delete/{imageid}'	, 'ImageController@deleteimage');

@@ -39,10 +39,19 @@
 				<div class="view-info">
 					<ul>
 						<li>
-							<div id="love-button" class="view-info-button">
-								<span class="love-icon view-info-awesome">&#xf08a;</span>
-								<span class="love-text view-info-text">Love it</span>
-							</div>
+							<?php if($loved == $_SESSION['login_name']): ?>
+								<div id="love-button" class="view-info-button">
+									<span class="love-icon view-info-awesome" style="color:#ed4956">&#xf004;</span>
+									<span class="love-text view-info-text">Loved</span>
+									
+								</div>
+							<?php else: ?>
+								<div id="love-button" class="view-info-button">
+									<span class="love-icon view-info-awesome">&#xf08a;</span>
+									<span class="love-text view-info-text">Love it</span>
+								</div>
+							<?php endif; ?>
+							
 							<input type="hidden" class="view-lover" value="<?php echo $_SESSION['login_name'] ?>" />
 							<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
 						</li>

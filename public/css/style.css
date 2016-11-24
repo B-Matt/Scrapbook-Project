@@ -317,6 +317,7 @@ hr {
 
 .view-info-awesome {
 	font: normal normal normal 15px/1 FontAwesome !important;
+	cursor: pointer;
 }
 
 .view-info-button {
