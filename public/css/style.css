@@ -66,6 +66,20 @@ hr {
 	margin-bottom: .25rem;
 }
 
+.home-item {
+	border-bottom: 1px solid #dbdbdb;
+    background-color: #f5f5f5;
+}
+.home-item-img {
+	height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+	-webkit-box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 0, 0.39);
+    -moz-box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 0, 0.39);
+    box-shadow: 0px 0px 10px 0.5px rgba(0, 0, 0, 0.39);
+	border: 5px solid white;
+}
+
 /* Navigation bar */
 .navbar-brand {
 	font-family: 'Pacifico', cursive;

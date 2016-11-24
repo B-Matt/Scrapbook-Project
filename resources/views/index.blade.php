@@ -2,14 +2,8 @@
 
 @section('cover')
 <div class="carousel-inner" role="listbox">
-	<div class="carousel-item active">
-		<img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
-		<div class="container">
-			<div class="carousel-caption text-xs-left">
-				<h1>Example headline.</h1>
-				<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-			</div>
-		</div>
+	<div class="home-item active">
+		<center><img class="home-item-img first-slide" src="{{ url('cover.png') }}" alt="Cover"></center>
 	</div>
 </div>
 @endsection
