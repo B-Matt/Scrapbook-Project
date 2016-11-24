@@ -12,12 +12,30 @@ function showImagePreview(input) {
     }
 }
 
+var cache = {};
 function showImageFilter(input) {
-	$.post("../app/Helpers/ImageFilter.php", { filter: input, path: fileInput },
-		function(data, status){
-			$("#upload-preview-image").attr('src', data);
-		}
-	);
+	if(cache[input]) {
+		showImageSource(cache[input]);
+	}		
+    else
+	   $.post("../app/Helpers/ImageFilter.php", { filter: input, path: fileInput },
+			function(data, status){
+				cache[input] = data;
+				showImageSource(data);
+			}
+		);
+}
+
+function showImageSource(data) {
+	$("#upload-preview-image").attr('src', data);
+}
+
+
+function loadSong(id, callback) {
+    if(!cache[id]) {
+        cache[id] = $.post('/songs', { 'id': id }).promise();
+    } 
+    cache[id].done(callback);
 }
 
 $('#love-button').click(function() {
