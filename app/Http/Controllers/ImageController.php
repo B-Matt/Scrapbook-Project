@@ -114,7 +114,14 @@ class ImageController extends Controller
 	public function image($imageid) {
 		// Load photo
 		$photo = new Photos();
-		$image = $photo->select()->where('id', '=', $imageid)->first();
+		$image = $photo->join('accounts', 'images.poster_id', '=', 'accounts.id')->select('accounts.name', 'images.*')->where('images.id', '=', $imageid)->first();
+		
+		// Is valid and private checking
+		if($image['original']['poster_id'] == 0) 
+			return redirect("user/" . $_SESSION['login_name']);
+		
+		if($image['original']['name'] != $_SESSION['login_name'])
+			return redirect("user/" . $_SESSION['login_name']);
 
 		// Photo poster
 		$user = new User();
