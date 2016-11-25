@@ -4,11 +4,20 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="Scrapbook is image sharing community">
+		<meta name="author" content="Matej Arlović (B-Matt)">
 		<link rel="icon" href="">
-
+		
+		<!-- Facebook tags -->
+		<meta property="og:url"           content="http:/localhost/laravel/public" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="Scrapbook" />
+		<meta property="og:description"   content="Scrapbook is image sharing community" />
+		<meta property="og:image"         content="" /> <!-- Icon -->
+	
+		<!-- End Facebook tags -->
 		<title>Scrapbook - Image Fantasy</title>
 
 		<!-- Bootstrap core CSS -->

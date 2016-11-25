@@ -22,4 +22,11 @@ class IndexController
 		$images = $photo->select()->where('poster_id', '=', $poster['original']['id'])->paginate(6);
 		return view('user.index', ['user' => $poster['original'], 'images' => $images]);
 	}
+	
+	public function explore() 
+	{
+		$photo = new Photos();
+		$images = $photo->select()->orderBy('views', 'desc')->paginate(6);
+		return view('user.explore', ['images' => $images]);
+	}
 }

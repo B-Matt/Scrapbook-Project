@@ -11,6 +11,17 @@
         </div>
     @endif
 	
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+	
 	<br><br><br>
 	<div id="view-image">
 		<div class="row">
@@ -56,7 +67,12 @@
 							<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
 						</li>
 						<li>
-							<p><span class="view-info-awesome">&#xf007;</span> <?php echo $image['views'] ?></p>
+							<p><span class="view-info-awesome">&#xf007;</span> <?php echo $views ?></p>
+						</li>
+						<li>
+							<div class="fb-share-button" data-href="http://localhost/laravel/public/image/2" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+								<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2Flaravel%2Fpublic%2Fimage%2F2&amp;src=sdkpreparse">Share</a>
+							</div>
 						</li>
 					</ul>
 				</div>

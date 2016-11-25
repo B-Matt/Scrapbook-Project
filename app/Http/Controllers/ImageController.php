@@ -143,12 +143,27 @@ class ImageController extends Controller
 		$image->views = $image->views + 1;
 		$image->save();
 		
+		
+		$views 			= number_format($image->views);
+		$input_count 	= substr_count($views, ',');
+		
+		if($input_count != '0'){
+			if($input_count == '1'){
+				$views = substr($views, 0, -4).'k';
+			} else if($input_count == '2'){
+				$views = substr($views, 0, -8).'mil';
+			} else if($input_count == '3'){
+				$views = substr($views, 0,  -12).'bil';
+			}
+		}
+		
 		$options = [ 
 			'image' 	=> $image['original'], 
 			'poster' 	=> $poster['original'], 
 			'posted_at' => $hours, 
 			'comments' 	=> $posts, 
-			'loved' 	=> $love_data['original']['name']
+			'loved' 	=> $love_data['original']['name'],
+			'views'		=> $views
 		];
 		return view('user.view', $options);
 	}

@@ -19,7 +19,7 @@ function showImageFilter(input) {
 	}		
     else
 	   $.post("../app/Helpers/ImageFilter.php", { filter: input, path: fileInput },
-			function(data, status){
+			function(data, status) {
 				cache[input] = data;
 				showImageSource(data);
 			}

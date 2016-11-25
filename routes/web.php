@@ -14,6 +14,7 @@
 /** INDEX CONTROLERS **/
 Route::get('/'							, 'IndexController@index');
 Route::get('/user/{name}'				, 'IndexController@user');
+Route::get('/explore'					, 'IndexController@explore');
 
 /** USER CONTROLERS (form) **/
 Route::get('/login'						, 'FormController@login');
