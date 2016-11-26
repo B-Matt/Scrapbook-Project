@@ -15,6 +15,7 @@
 Route::get('/'							, 'IndexController@index');
 Route::get('/user/{name}'				, 'IndexController@user');
 Route::get('/explore'					, 'IndexController@explore');
+Route::get('/hashtags/{hashtag}'		, 'IndexController@showtag');
 
 /** USER CONTROLERS (form) **/
 Route::get('/login'						, 'FormController@login');

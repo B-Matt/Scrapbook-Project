@@ -16,14 +16,12 @@ define("TYPE_THUMBNAIL", 2);	// 293x293
 session_start();
 class ImageController extends Controller
 {	
-    public function upload()
-    {	
+    public function upload() {	
 		if( !isset($_SESSION['login_name'])) return redirect("login");
 		return view('user.upload');
     }
     
-	function saveImageWithFilter($path, $filter, $name, $type)
-	{
+	function saveImageWithFilter($path, $filter, $name, $type) {
 		$image = Image::make($path);
 		if($type == TYPE_THUMBNAIL) 		$image->fit(293);
 		else if($type == TYPE_FULLPHOTO) 	$image->fit(1080);
@@ -68,8 +66,29 @@ class ImageController extends Controller
 		else if($type == TYPE_FULLPHOTO) $image->save(public_path('images') . '/' . $name . '_full.jpg');
 	}
 	
-    public function uploadsubmit(Request $request)
-    {
+	function makeHashTags($string) {
+		$regexPattern = "/#+([a-zA-Z0-9_]+)/";
+		$string = preg_replace($regexPattern, "<a href='../hashtags/$1'>$0</a>", $string);
+		return $string;
+	}
+	
+	function createViewsString($views) {
+		$views 			= number_format($views);
+		$input_count 	= substr_count($views, ',');
+		
+		if($input_count != '0'){
+			if($input_count == '1'){
+				$views = substr($views, 0, -4).'k';
+			} else if($input_count == '2'){
+				$views = substr($views, 0, -8).'mil';
+			} else if($input_count == '3'){
+				$views = substr($views, 0,  -12).'bil';
+			}
+		}
+		return $views;
+	}
+	
+    public function uploadsubmit(Request $request) {
         $this->validate($request, [
             'name'            => 'required|string|max:30',
             'description'     => 'required|string|max:256',
@@ -114,22 +133,18 @@ class ImageController extends Controller
 	public function image($imageid) {
 		// Load photo
 		$photo = new Photos();
-		$image = $photo->join('accounts', 'images.poster_id', '=', 'accounts.id')->select('accounts.name', 'images.*')->where('images.id', '=', $imageid)->first();
+		$image = $photo->join('accounts', 'images.poster_id', '=', 'accounts.id')->select('accounts.name', 'accounts.avatar', 'images.*')->where('images.id', '=', $imageid)->first();
 		
 		// Is valid and private checking
 		if($image['original']['poster_id'] == 0) 
 			return redirect("user/" . $_SESSION['login_name']);
 		
-		if($image['original']['name'] != $_SESSION['login_name'])
+		if( $image['original']['isPrivate'] == 1 && $image['original']['name'] != $_SESSION['login_name'] )
 			return redirect("user/" . $_SESSION['login_name']);
 
-		// Photo poster
-		$user = new User();
-        $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
-		
 		// Time created
 		$diff = time() - $image['original']['created_at'];
-		$hours = $diff / 3600 % 24;
+		$hours = intval($diff/3600);
 		
 		// Comments
 		$comments = new Comments();
@@ -142,28 +157,15 @@ class ImageController extends Controller
 		// Views counter
 		$image->views = $image->views + 1;
 		$image->save();
-		
-		
-		$views 			= number_format($image->views);
-		$input_count 	= substr_count($views, ',');
-		
-		if($input_count != '0'){
-			if($input_count == '1'){
-				$views = substr($views, 0, -4).'k';
-			} else if($input_count == '2'){
-				$views = substr($views, 0, -8).'mil';
-			} else if($input_count == '3'){
-				$views = substr($views, 0,  -12).'bil';
-			}
-		}
-		
+		$view = ImageController::createViewsString($image->views);
+
 		$options = [ 
-			'image' 	=> $image['original'], 
-			'poster' 	=> $poster['original'], 
-			'posted_at' => $hours, 
-			'comments' 	=> $posts, 
-			'loved' 	=> $love_data['original']['name'],
-			'views'		=> $views
+			'image' 		=> $image['original'], 
+			'description' 	=> ImageController::makeHashTags($image['original']['description']),
+			'posted_at' 	=> $hours, 
+			'comments' 		=> $posts, 
+			'loved' 		=> $love_data['original']['name'],
+			'views'			=> $view
 		];
 		return view('user.view', $options);
 	}

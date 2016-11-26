@@ -441,6 +441,13 @@ hr {
     border-radius: 0px !important;
 }
 
+/* Hashtag search
+------------------------- */
+.hashtag-title {
+	margin-top: 35px;
+    width: 350px;
+    text-align: center;
+}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */

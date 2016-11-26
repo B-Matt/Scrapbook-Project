@@ -8,14 +8,12 @@ use App\Photos;
 session_start();
 class IndexController
 {
-    public function index()
-    {
+    public function index() {
 		if(isset($_SESSION['login_name'])) return redirect("user/" . $_SESSION['login_name']);
         return view('index', []);
     }
 	
-	public function user($name) 
-	{        
+	public function user($name) {        
 		$user = new User();
 		$poster = $user->where('name', '=', $name)->first();
 		$photo = new Photos();
@@ -23,10 +21,19 @@ class IndexController
 		return view('user.index', ['user' => $poster['original'], 'images' => $images]);
 	}
 	
-	public function explore() 
-	{
+	public function explore() {
 		$photo = new Photos();
-		$images = $photo->select()->orderBy('views', 'desc')->paginate(6);
+		$images = $photo->select()->where('isPrivate', '=', '0')->orderBy('views', 'desc')->paginate(15);
 		return view('user.explore', ['images' => $images]);
+	}
+	
+	public function showtag($hashtag) {
+		// Sanitize query
+		$hashtag = preg_replace('#[^a-z0-9_]#i', '', $hashtag);
+		
+		// Load photo
+		$photo = new Photos();
+		$image = $photo->join('accounts', 'images.poster_id', '=', 'accounts.id')->select('accounts.name', 'images.*')->where([['images.description', 'like', '%#' . $hashtag . '%'], ['images.isPrivate', '=', '0']])->paginate(15);
+		return view('user.tags', ['images' => $image, 'hashtag' => '#'. $hashtag]);
 	}
 }

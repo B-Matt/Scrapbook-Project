@@ -31,13 +31,13 @@
 			<div class="col-sm-4">
 				<div class="row">
 					<div class="col-sm-4" style="width:auto;">
-						<a href="../user/<?php echo $poster['name'] ?>"><img class="view-avatar" width="60" height="60" src="<?php echo $poster['avatar'] ?>" alt="Profile Picture" /></a>
+						<a href="../user/<?php echo $image['name'] ?>"><img class="view-avatar" width="60" height="60" src="<?php echo $image['avatar'] ?>" alt="Profile Picture" /></a>
 					</div>
 					<div class="col-sm-4 view-title">
 						<h1><?php echo $image['title']; ?></h1>
 					</div>
 					<div class="col-sm-4 view-hours">
-						<?php if($poster['name'] == $_SESSION['login_name']): ?>
+						<?php if($image['name'] == $_SESSION['login_name']): ?>
 							<a href="{{ url('image/') }}<?php echo '/delete/' . $image['id']; ?>">&#xf014;</a>
 						<?php endif; ?>
 						<h4 class="view-title">
@@ -46,7 +46,7 @@
 					</div>
 				</div>
 				<hr>
-				<p class="view-text"><?php echo $image['description']; ?></p>
+				<p class="view-text"><?php echo $description ?></p>
 				<div class="view-info">
 					<ul>
 						<li>
