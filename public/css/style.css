@@ -98,6 +98,30 @@ hr {
     border-bottom: 1px solid #dbdbdb;
 }
 
+/* Search Bar */
+.search-bar input[type="text"] {
+	float: right;
+    margin-right: 50px;
+    margin-top: 8px;
+    width: 130px;
+    height: 35px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    background-color: white;
+    background-image: url(../searchicon.png);
+    background-position: 10px 5px;
+    background-repeat: no-repeat;
+    padding: 10px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.search-bar input[type="text"]:focus {
+    width: 250px;
+}
+
 /* Footer */
 .footer {
 	position: absolute;
@@ -459,7 +483,8 @@ hr {
 .hashtag-title {
 	margin-top: 35px;
     width: 350px;
-    text-align: center;
+    text-align: left;
+    margin-left: 50px;
 }
 
 /* RESPONSIVE CSS

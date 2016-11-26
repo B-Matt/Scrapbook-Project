@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('cover')
-	<div class="hashtag-title"><h1>{{ $hashtag }}</h1></div>
+	<div class="hashtag-title"><h2>{{ $hashtag }}</h2></div>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
 		<ul id="items">
 			@foreach($images as $photo)
 				<li class="item">
-					<a style="margin:.2vw;" class="gallery-image-link" href='../image/{{ $photo->id }}'>
+					<a style="margin:.2vw;" class="gallery-image-link" href='{{ url("/image/$photo->id") }}'>
 						<img src='{{ asset($photo->path) }}' alt='{{ $photo->title }}' height=186 width=186 />
 					</a>
 				</li>

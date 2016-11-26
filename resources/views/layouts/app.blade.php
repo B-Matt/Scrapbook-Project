@@ -32,27 +32,31 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-static-top navbar-light bg-faded">
-		  <a href="{{ url('/') }}" class="navbar-brand">Scrapbook</a>
-		  <ul class="nav navbar-nav">
-			<li class="nav-item">
-				<div class="nav-spacing"></div>
-			</li>
-			<?php if(isset($_SESSION['login_name']) && $_SESSION['login_name']): ?>
-			<li class="nav-item">
-			  <a class="nav-link" href="{{ url('/explore') }}">Explore</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="{{ url('/upload') }}">Upload</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="{{ url('/logout') }}">Log out</a>
-			</li>
-			<?php else: ?>
-			<li class="nav-item">
-			  <a class="nav-link" href="{{ url('/login') }}">Login</a>
-			</li>
-			<?php endif; ?>
-		  </ul>
+			<a href="{{ url('/') }}" class="navbar-brand">Scrapbook</a>
+			<ul class="nav navbar-nav">
+				<li class="nav-item">
+					<div class="nav-spacing"></div>
+				</li>
+				<?php if(isset($_SESSION['login_name']) && $_SESSION['login_name']): ?>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url('/explore') }}">Explore</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url('/upload') }}">Upload</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url('/logout') }}">Log out</a>
+				</li>
+				<?php else: ?>
+				<li class="nav-item">
+				  <a class="nav-link" href="{{ url('/login') }}">Login</a>
+				</li>
+				<?php endif; ?>
+			</ul>
+			<form class="search-bar" method="get" action="../search">
+				<input type="text" name="query" placeholder="Search..">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+			</form>
 		</nav>
 		@yield('cover')
 

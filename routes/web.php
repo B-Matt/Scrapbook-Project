@@ -14,6 +14,7 @@
 /** INDEX CONTROLERS **/
 Route::get('/'							, 'IndexController@index');
 Route::get('/user/{name}'				, 'IndexController@user');
+Route::get('/search'					, 'IndexController@search');
 Route::get('/explore'					, 'IndexController@explore');
 Route::get('/hashtags/{hashtag}'		, 'IndexController@showtag');
 
