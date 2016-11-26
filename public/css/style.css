@@ -364,9 +364,22 @@ hr {
 	text-align: center;
 	margin-bottom: 10px;
 	margin-top: -10px;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 	border-bottom: 1px solid #cecece;
 	cursor:default;
+}
+
+.view-text-change {
+	width: 300px;
+    height: 100px;
+} 
+
+.view-text-change-submit {
+	border-radius: 100%;
+	height: 35px;
+	width: 35px;
+	border: 0;
+	background-color: #337ab7;
 }
 
 .view-input {

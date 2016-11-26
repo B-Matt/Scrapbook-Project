@@ -185,16 +185,36 @@ class ImageController extends Controller
 		$comments->text			= $text;
 		$comments->save();
 		
+		// Load photo
 		$photo = new Photos();
-		$image = $photo->select()->where('id', '=', $imageid)->first();
-        $poster = $user->where('id', '=', $image['original']['poster_id'])->first();
+		$image = $photo->join('accounts', 'images.poster_id', '=', 'accounts.id')->select('accounts.name', 'accounts.avatar', 'images.*')->where('images.id', '=', $imageid)->first();
 
+		// Time created
 		$diff = time() - $image['original']['created_at'];
-		$hours = $diff / 3600 % 24;
+		$hours = intval($diff/3600);
 		
+		// Comments
 		$comments = new Comments();
 		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
-		return view('user.view', ['image' => $image['original'], 'poster' => $poster['original'], 'posted_at' => $hours, 'comments' => $posts]);
+		
+		// Loves
+		$loves = new Loves();
+		$love_data = $loves->join('accounts', 'loves.lovers_id', '=', 'accounts.id')->select('accounts.name', 'loves.*')->where([['image_id', '=', $imageid], ['accounts.name', '=', $_SESSION['login_name']]])->first();
+		
+		// Views counter
+		$image->views = $image->views + 1;
+		$image->save();
+		$view = ImageController::createViewsString($image->views);
+
+		$options = [ 
+			'image' 		=> $image['original'], 
+			'description' 	=> ImageController::makeHashTags($image['original']['description']),
+			'posted_at' 	=> $hours, 
+			'comments' 		=> $posts, 
+			'loved' 		=> $love_data['original']['name'],
+			'views'			=> $view
+		];
+		return view('user.view', $options);
 	}
 	
 	public function deleteimage($imageid) {
@@ -208,5 +228,20 @@ class ImageController extends Controller
 		unlink(public_path($photo->path));
 		$photo->delete();
 		return redirect("user/" . $_SESSION['login_name']);
+	}
+	
+	public function changedescription($imageid, Request $request) {
+		$this->validate($request, [
+            'new_description'	=> 'required|string|max:255',
+        ]);
+		$text = htmlspecialchars($_POST['new_description']);
+	
+		// Load photo
+		$photo = new Photos();
+		$image = $photo->join('accounts', 'images.poster_id', '=', 'accounts.id')->select('accounts.name', 'accounts.avatar', 'images.*')->where('images.id', '=', $imageid)->first();
+		$image->description = $text;
+		$image->save();
+		
+		return redirect("image/" . $imageid);
 	}
 }

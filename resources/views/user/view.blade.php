@@ -46,7 +46,13 @@
 					</div>
 				</div>
 				<hr>
-				<p class="view-text"><?php echo $description ?></p>
+				<div class="view-text">
+					<?php if($image['name'] == $_SESSION['login_name']): ?>
+						<p class="view-click-change"><?php echo $description ?></p>
+					<?php else: ?>
+						<p><?php echo $description ?></p>
+					<?php endif; ?>
+				</div>
 				<div class="view-info">
 					<ul>
 						<li>
@@ -87,7 +93,7 @@
 		</div>
 		<form method="post" action="<?php echo $image['id']; ?>">
 			<input type="text" name="comment" class="view-input" maxlength="90" />
-			<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+			<input type="hidden" class="test" name="_token" value="{{ csrf_token() }}"/>
 			<input type="hidden" name="author" value="<?php echo $_SESSION['login_name'] ?>" />
 			<input type="hidden" name="image_id" value='{{ $image["id"] }}' />
 			<input type="submit" class="view-submit view-submit-text" value="&#xf0e5;"></input>

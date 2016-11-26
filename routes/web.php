@@ -30,3 +30,4 @@ Route::post('/upload'					, 'ImageController@uploadsubmit');
 Route::get('/image/{imageid}'			, 'ImageController@image')->where('imageid', '[0-9]+');
 Route::post('/image/{imageid}'			, 'ImageController@commentsubmit')->where('imageid', '[0-9]+');
 Route::get('/image/delete/{imageid}'	, 'ImageController@deleteimage');
+Route::post('/image/chngdcrpt/{imageid}', 'ImageController@changedescription');

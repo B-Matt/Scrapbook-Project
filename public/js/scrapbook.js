@@ -30,14 +30,6 @@ function showImageSource(data) {
 	$("#upload-preview-image").attr('src', data);
 }
 
-
-function loadSong(id, callback) {
-    if(!cache[id]) {
-        cache[id] = $.post('/songs', { 'id': id }).promise();
-    } 
-    cache[id].done(callback);
-}
-
 $('#love-button').click(function() {
 	if($('#loved-button').length != 0) {
 		$('.love-icon').text("").css('color', 'inherit');
@@ -51,4 +43,10 @@ $('#love-button').click(function() {
 		$('.love-text').text("Loved");
 		$('#love-button').prop('id', 'loved-button');
 	}
+});
+
+$('.view-click-change').click(function() {
+	var value = $('.view-text').text();
+	var str = window.location.pathname .split('/');
+	$('.view-click-change').replaceWith('<form method="post" action="chngdcrpt/' + str[4] + '"><input type="hidden" name="_token" value="' + $('.test').val() + '"/><textarea id="view-text-changed" name="new_description" class="view-text-change">' + value + '</textarea><input type="submit" class="view-text-change-submit view-submit-text" value="&#xf1d8;"></input></form>');
 });
