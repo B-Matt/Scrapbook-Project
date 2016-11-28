@@ -1,26 +1,20 @@
-# Laravel PHP Framework
+# Scrapbook Project
+## Image sharing community 
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Scrapbook project is based on Laravels framework. It was a project for PHP academy where we should make a page like Instagram. 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Scrapbooks design is clean mobile responsive because it is powered by Bootstrap and custom CSS. Site is made in 2 weeks (I've worked on it after lectures and hobby so don't judge). 
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+- Image filter preview Scrapbook do it on client site without uploading photos many times (preview is cached) it only uploads photo after hitting "Upload" button. Program creates two set of images: thumbnail (293x293) and full(1080x1080) for previewing image or downloading it. 
+- Scrapbook has custom made like (here we call it Lovers sys) and commenting systems. Only registered users can love and/or comment any public photos (yes we have private photos to!). 
+- You can also use hashtag in description of photo and then other users can search your hashtag for similar photos!
 
-## Official Documentation
+## Contributors
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+- B-Matt - code and design
+- Inchoo team ([Inchoo.net](http://inchoo.net/)) - Image Filters
+- LemonHaze aka Fusion - Homepage cover
+- Laravel dev team ([Laravel](https://laravel.com/)) - Laravel framework
 
 ## License
 
