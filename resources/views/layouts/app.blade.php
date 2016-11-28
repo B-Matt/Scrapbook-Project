@@ -53,10 +53,12 @@
 				</li>
 				<?php endif; ?>
 			</ul>
+			<?php if(isset($_SESSION['login_name']) && $_SESSION['login_name']): ?>
 			<form class="search-bar" method="get" action="../search">
 				<input type="text" name="query" placeholder="Search..">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 			</form>
+			<?php endif; ?>
 		</nav>
 		@yield('cover')
 

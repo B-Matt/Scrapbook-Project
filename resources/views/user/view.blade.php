@@ -37,7 +37,7 @@
 						<h1><?php echo $image['title']; ?></h1>
 					</div>
 					<div class="col-sm-4 view-hours">
-						<?php if($image['name'] == $_SESSION['login_name']): ?>
+						<?php if(isset($_SESSION['login_name']) && $image['name'] == $_SESSION['login_name']): ?>
 							<a href="{{ url('image/') }}<?php echo '/delete/' . $image['id']; ?>">&#xf014;</a>
 						<?php endif; ?>
 						<h4 class="view-title">
@@ -47,7 +47,7 @@
 				</div>
 				<hr>
 				<div class="view-text">
-					<?php if($image['name'] == $_SESSION['login_name']): ?>
+					<?php if(isset($_SESSION['login_name']) && $image['name'] == $_SESSION['login_name']): ?>
 						<p class="view-click-change"><?php echo $description ?></p>
 					<?php else: ?>
 						<p><?php echo $description ?></p>
@@ -56,21 +56,21 @@
 				<div class="view-info">
 					<ul>
 						<li>
-							<?php if($loved == $_SESSION['login_name']): ?>
+							<?php if(isset($_SESSION['login_name']) && $loved == $_SESSION['login_name']): ?>
 								<div id="love-button" class="view-info-button">
 									<span class="love-icon view-info-awesome" style="color:#ed4956">&#xf004;</span>
 									<span class="love-text view-info-text">Loved</span>
-									
 								</div>
-							<?php else: ?>
+								<input type="hidden" class="view-lover" value="<?php echo $_SESSION['login_name'] ?>" />
+								<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
+							<?php elseif(isset($_SESSION['login_name']) && $loved != $_SESSION['login_name']): ?>
 								<div id="love-button" class="view-info-button">
 									<span class="love-icon view-info-awesome">&#xf08a;</span>
 									<span class="love-text view-info-text">Love it</span>
 								</div>
+								<input type="hidden" class="view-lover" value="<?php echo $_SESSION['login_name'] ?>" />
+								<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
 							<?php endif; ?>
-							
-							<input type="hidden" class="view-lover" value="<?php echo $_SESSION['login_name'] ?>" />
-							<input type="hidden" class="view-love-image" value='{{ $image["id"] }}' />
 						</li>
 						<li>
 							<p><span class="view-info-awesome">&#xf007;</span> <?php echo $views ?></p>
@@ -91,6 +91,7 @@
 				</div>
 			</div>
 		</div>
+		<?php if(isset($_SESSION['login_name'])): ?>
 		<form method="post" action="<?php echo $image['id']; ?>">
 			<input type="text" name="comment" class="view-input" maxlength="90" />
 			<input type="hidden" class="test" name="_token" value="{{ csrf_token() }}"/>
@@ -98,5 +99,6 @@
 			<input type="hidden" name="image_id" value='{{ $image["id"] }}' />
 			<input type="submit" class="view-submit view-submit-text" value="&#xf0e5;"></input>
 		</form>
+		<?php endif; ?>
 	</div>
 @endsection

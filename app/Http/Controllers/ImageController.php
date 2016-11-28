@@ -150,23 +150,35 @@ class ImageController extends Controller
 		$comments = new Comments();
 		$posts = $comments->join('accounts', 'comments.poster_id', '=', 'accounts.id')->select('accounts.name', 'comments.*')->where('image_id', '=', $imageid)->get();
 		
-		// Loves
-		$loves = new Loves();
-		$love_data = $loves->join('accounts', 'loves.lovers_id', '=', 'accounts.id')->select('accounts.name', 'loves.*')->where([['image_id', '=', $imageid], ['accounts.name', '=', $_SESSION['login_name']]])->first();
+		if(isset($_SESSION['login_name'])) {
+			// Loves
+			$loves = new Loves();
+			$love_data = $loves->join('accounts', 'loves.lovers_id', '=', 'accounts.id')->select('accounts.name', 'loves.*')->where([['image_id', '=', $imageid], ['accounts.name', '=', $_SESSION['login_name']]])->first();
+		}
 		
 		// Views counter
 		$image->views = $image->views + 1;
 		$image->save();
 		$view = ImageController::createViewsString($image->views);
 
-		$options = [ 
-			'image' 		=> $image['original'], 
-			'description' 	=> ImageController::makeHashTags($image['original']['description']),
-			'posted_at' 	=> $hours, 
-			'comments' 		=> $posts, 
-			'loved' 		=> $love_data['original']['name'],
-			'views'			=> $view
-		];
+		if(isset($_SESSION['login_name'])) {
+			$options = [ 
+				'image' 		=> $image['original'], 
+				'description' 	=> ImageController::makeHashTags($image['original']['description']),
+				'posted_at' 	=> $hours,
+				'loved' 		=> $love_data['original']['name'],			
+				'comments' 		=> $posts,
+				'views'			=> $view
+			];
+		} else {
+			$options = [ 
+				'image' 		=> $image['original'], 
+				'description' 	=> ImageController::makeHashTags($image['original']['description']),
+				'posted_at' 	=> $hours,		
+				'comments' 		=> $posts,
+				'views'			=> $view
+			];
+		}
 		return view('user.view', $options);
 	}
 	
